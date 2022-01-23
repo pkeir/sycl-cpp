@@ -17,7 +17,7 @@ bool host_buffer_test1()
 
   buffer<int, 1> buf_1d{ data, range<1>{sz} };
   buffer<int, 2> buf_2d{ data, range<2>{h,w} };
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
   host_accessor h_acc_1d { buf_1d, read_only };
   host_accessor h_acc_2d { buf_2d, read_only };
 #else
@@ -52,7 +52,7 @@ bool host_buffer_test2()
   buffer<int, 1> buf_1d{ data, range<1>{sz} };
   q.submit([&](handler& cgh)
   {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
     accessor acc{ buf_1d, cgh, write_only, no_init };
     cgh.parallel_for(range<1>{sz}, [=](id<1> i) { acc[i] = i[0]; });
 #else
@@ -63,7 +63,7 @@ bool host_buffer_test2()
 
   bool b{true};
   int count{0};
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
   host_accessor h_acc_1d { buf_1d, read_only };
 #else
   auto h_acc_1d = buf_1d.get_access<access::mode::read>();
@@ -88,7 +88,7 @@ bool host_buffer_test3()
   buffer<int, 2> buf_2d{ data, range<2>{h,w} };
   q.submit([&](handler& cgh)
   {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
     accessor acc{ buf_2d, cgh, write_only, no_init };
     cgh.parallel_for(range<2>{h,w}, [=](id<2> i) {
       acc[i] = i[0]*w + i[1];
@@ -103,7 +103,7 @@ bool host_buffer_test3()
 
   bool b{true};
   int count{0};
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
   host_accessor h_acc_2d { buf_2d, read_only };
 #else
   auto h_acc_2d = buf_2d.get_access<access::mode::read>();
@@ -129,7 +129,7 @@ bool host_buffer_test4()
   buffer<int, 3> buf_3d{ data, range<3>{d,h,w} };
   q.submit([&](handler& cgh)
   {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
     accessor acc{ buf_3d, cgh, write_only, no_init };
     cgh.parallel_for(range<3>{d,h,w}, [=](id<3> i) {
       acc[i] = i[0]*h*w + i[1]*w + i[2];
@@ -144,7 +144,7 @@ bool host_buffer_test4()
 
   bool b{true};
   int count{0};
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
   host_accessor h_acc_3d { buf_3d, read_only };
 #else
   auto h_acc_3d = buf_3d.get_access<access::mode::read>();

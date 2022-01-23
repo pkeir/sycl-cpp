@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
   f4b += f4c;
   f4b += 1;
   f4b = f4b + 1;
-#if defined(__MOTORSYCL__) || defined(TRISYCL_CL_LANGUAGE_VERSION)
+#if defined(__SYCL_CPP__) || defined(TRISYCL_CL_LANGUAGE_VERSION)
   f4b = 1 + f4b;
 #else
   f4b = 1.0f + f4b;
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
   i1+1;
   static_assert(std::is_same_v<decltype(i1+1),sycl::vec<int,1>>);
 
-#ifndef __MOTORSYCL__
+#ifndef __SYCL_CPP__
 {
   // 4.14.2.4. Swizzled vec class
   sycl::float4 sw = f4.swizzle<1,3,0,2>(); // auto not permitted

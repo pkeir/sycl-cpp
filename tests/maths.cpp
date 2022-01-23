@@ -33,7 +33,7 @@ bool test_maths(const T tol)
 
     q.submit([&](sycl::handler& cgh)
     {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
       sycl::accessor acc{ buf, cgh, sycl::write_only, sycl::no_init };
       cgh.parallel_for(r, [=](sycl::id<1> i) {
 #else

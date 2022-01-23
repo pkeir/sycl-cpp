@@ -23,7 +23,7 @@ bool simple_2d_nd_range()
     {
       range<2> gr{gh, gw};
       range<2> lr{lh, lw};
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
       accessor acc{ buf, cgh, write_only, no_init };
       cgh.parallel_for(nd_range<2>{gr,lr}, [=](nd_item<2> i) {
 #else
@@ -72,7 +72,7 @@ bool basic_nd_range_type()
   return b && b2;
 }
 
-#if defined(__MOTORSYCL__)
+#if defined(__SYCL_CPP__)
 bool basic_nd_item_type()
 {
   sycl::range<2> g1{12,4};
@@ -94,7 +94,7 @@ bool basic_nd_item_type()
 int main(int argc, char *argv[])
 {
   assert(basic_nd_range_type());
-#if defined(__MOTORSYCL__)
+#if defined(__SYCL_CPP__)
   assert(basic_nd_item_type());
 #endif
   assert(simple_2d_nd_range());

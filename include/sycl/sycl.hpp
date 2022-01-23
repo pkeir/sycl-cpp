@@ -1,9 +1,9 @@
-#ifndef _MOTORSYCL_HPP_
-#define _MOTORSYCL_HPP_
+#ifndef _SYCL_CPP_HPP_
+#define _SYCL_CPP_HPP_
 
 // Copyright (c) 2020-2021 Paul Keir, University of the West of Scotland.
 
-#define __MOTORSYCL__
+#define __SYCL_CPP__
 #define SYCL_LANGUAGE_VERSION 202001
 
 #include "detail/zip_with.hpp"
@@ -48,7 +48,7 @@ namespace sycl {
 // Section 3.9.2 Alignment with future versions of C++
 using std::span;
 using std::dynamic_extent;
-#ifndef __NVCOMPILER
+#if 0 // only in recent libstdc++
 using std::bit_cast;
 #endif
 
@@ -3582,4 +3582,4 @@ float length(float3 p) {
 
 } // namespace sycl
 
-#endif // _MOTORSYCL_HPP_
+#endif // _SYCL_CPP_HPP_

@@ -20,14 +20,14 @@ bool multi_ptr_test()
 
     q.submit([&](handler& cgh)
     {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
       accessor acc{ buf, cgh, write_only, no_init };
       cgh.parallel_for(range<1>{sz}, [=](id<1> i) {
 #else
       auto acc = buf.get_access<access::mode::write>(cgh);
       cgh.parallel_for<Foo>(range<1>{sz}, [=](id<1> i) {
 #endif
-#if defined(__MOTORSYCL__)
+#if defined(__SYCL_CPP__)
         auto ptr = sycl::make_ptr<T,access::address_space::global_space,
                                       access::decorated::legacy>(
                                         acc.get_pointer());

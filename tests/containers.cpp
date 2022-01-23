@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
     q.submit([&](handler& cgh)
     {                      // __SYCL_COMPILER_VERSION covers the Intel compiler
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
       accessor acc_in{ buf_in, cgh, read_only };
       accessor acc_out{ buf_out, cgh, write_only, no_init };
       cgh.parallel_for(r, [=](id<1> i) {

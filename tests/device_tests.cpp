@@ -38,7 +38,7 @@ bool selector_test()
 
     q.submit([&](handler& cgh)
     {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
       accessor acc{ buf, cgh, write_only, no_init };
       cgh.parallel_for(range<2>{h,w}, [=](id<2> i) {
 #else

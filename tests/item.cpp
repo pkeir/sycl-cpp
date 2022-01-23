@@ -22,7 +22,7 @@ bool item_test()
 
     q.submit([&](handler& cgh)
     {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
       accessor acc{ buf, cgh, write_only, no_init };
       cgh.parallel_for(range<1>{sz}, [=](item<1> i) {
 //      cgh.parallel_for(range<1>{sz}, [=](id<1> i) {
@@ -62,7 +62,7 @@ bool item_test_parallel_for_offsets()
     {
       range<1> sub_r{sub_sz};
       id<1> o{offset};
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
       accessor acc{ buf, cgh, write_only, no_init };
       cgh.parallel_for(sub_r, o, [=](item<1> i) {
 #else
@@ -99,7 +99,7 @@ bool item_test_parallel_for_offsets_2d()
     {
       range<2> sub_r{sub_sz1, sub_sz2};
       id<2> o{offset1, offset2};
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
       accessor acc{ buf, cgh, write_only, no_init };
       cgh.parallel_for(sub_r, o, [=](item<2> i) {
 #else
@@ -146,7 +146,7 @@ bool item_test_accessor_offsets()
     {
       range<1> sub_r{sub_sz};
       id<1> o1{offset1}, o2{offset2};
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
       //accessor acc{ buf, cgh, write_only, no_init };
       accessor acc{ buf, cgh, sub_r, o1 }; // use this one
       cgh.parallel_for(sub_r, o2, [=](item<1> i) {

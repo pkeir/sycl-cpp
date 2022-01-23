@@ -22,7 +22,7 @@ bool simple_2d_test()
 
     q.submit([&](handler& cgh)
     {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
       accessor acc{ buf, cgh, write_only, no_init };
       cgh.parallel_for(range<2>{h,w}, [=](id<2> i) {
 #else
@@ -39,7 +39,7 @@ bool simple_2d_test()
         i += j; i -= j;
         i += 1; i *= 2; i /= 2; i -= 1;
 // SYCL 2020:
-#if defined(__MOTORSYCL__)
+#if defined(__SYCL_CPP__)
         i = -i; i = -i;
         ++i; --i;
         i++; i--;

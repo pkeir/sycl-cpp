@@ -22,7 +22,7 @@ bool destroy_test()
   queue q;
   q.submit([&](handler& cgh)
   {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
     accessor acc1{ *pbuf1, cgh, write_only, no_init };
 //    cgh.parallel_for(sz, [=](id<1> i) {   // todo: look at range<1> ctors
     cgh.parallel_for(range{sz}, [=](id<1> i) {

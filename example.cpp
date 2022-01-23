@@ -4,7 +4,8 @@
 
 // USM Device Allocations
 
-// $MYNVCPP/bin/nvc++ -stdpar -std=c++20 -I include example.cpp
+//     g++ -std=c++20 -I include example.cpp -ltbb
+// clang++ -std=c++20 -I include example.cpp -ltbb
 
 int main(int argc, char *argv[])
 {

@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
   queue q;
   q.submit([&](handler& cgh)
   {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
     accessor A { a, cgh, write_only };
     cgh.parallel_for(range<1> {N}, [=](id<1> index) {
 #else
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 
   q.submit([&](handler& cgh)
   {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
     accessor B { b, cgh, write_only };
     cgh.parallel_for(range<1> {N}, [=](id<1> index) {
 #else
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
   q.submit([&](handler& cgh)
   {
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
     accessor A { a, cgh, read_only };
     accessor B { b, cgh, read_only };
     accessor C { c, cgh, write_only };
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     });
   });
 
-#if defined(__MOTORSYCL__) || defined(__SYCL_COMPILER_VERSION)
+#if defined(__SYCL_CPP__) || defined(__SYCL_COMPILER_VERSION)
   host_accessor C { c, read_only };
 #else
   auto C = c.get_access<access::mode::read>();
